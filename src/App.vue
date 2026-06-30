@@ -1,8 +1,15 @@
 <script setup lang="ts">
-// @ts-expect-error — JS single-file component (the day1 activity) has no type declarations
-import TaskCounter from './components/day1_taskCounter.vue'
+// ── DAY 1  ──
+// @ts-ignore — JS single-file component (the day1 activity) has no type declarations
+// import TaskCounter from './components/day1_taskCounter.vue'
+// ── DAY 2  ──
+import TaskListView from './components/TaskListView_day2.vue'
 </script>
 
 <template>
-  <TaskCounter />
+  <!-- DAY 1 -->
+  <!-- <TaskCounter /> -->
+
+  <!-- DAY 2  -->
+  <TaskListView />
 </template>
