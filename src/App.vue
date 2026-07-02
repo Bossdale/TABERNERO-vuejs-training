@@ -1,15 +1,12 @@
 <script setup lang="ts">
-// ── DAY 1  ──
-// @ts-ignore — JS single-file component (the day1 activity) has no type declarations
-// import TaskCounter from './components/day1_taskCounter.vue'
-// ── DAY 2  ──
-import TaskListView from './components/TaskListView_day2.vue'
+// Persistent top navigation between Day 1–Day 4, each rendered via the router.
+// @ts-ignore — JS single-file component (no <script lang="ts">, so no type declarations)
+import DayTabs from './components/DayTabs.vue'
 </script>
 
 <template>
-  <!-- DAY 1 -->
-  <!-- <TaskCounter /> -->
+  <DayTabs />
 
-  <!-- DAY 2  -->
-  <TaskListView />
+  <!-- Each day's task is rendered here based on the active route -->
+  <RouterView />
 </template>

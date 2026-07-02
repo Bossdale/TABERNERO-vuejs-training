@@ -8,9 +8,95 @@
   margin: 0;
 }
 
+:root {
+  --text: #1f2933;
+  --text-dim: #6b7280;
+  --surface: #ffffff;
+  --surface-2: #f6f7f9;
+  --surface-hover: #eef0f3;
+  --border: rgba(17, 24, 39, 0.08);
+  --border-strong: rgba(17, 24, 39, 0.16);
+  --shadow: 0 12px 34px rgba(17, 24, 39, 0.08);
+  --radius: 22px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --done: #2f8f66;
+  --done-bg: #eaf6f0;
+  --pending: #b45309;
+  --pending-bg: #fbf3e6;
+}
+
 body {
   min-height: 100vh;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Segoe UI', system-ui, Roboto, sans-serif;
   line-height: 1.5;
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
+  background: #f4f5f7;
+}
+
+/* ── Shared layout shell ─────────────────────────────── */
+.page-shell {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 56px 20px;
+}
+
+/* ── Card surface ────────────────────────────────────── */
+.glass-panel {
+  width: 100%;
+  max-width: 540px;
+  padding: 34px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+.glass-btn:hover {
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.1);
+}
+.glass-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Status pill ─────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.pill.done {
+  color: var(--done);
+  background: var(--done-bg);
+  border: 1px solid rgba(47, 143, 102, 0.28);
+}
+.pill.pending {
+  color: var(--pending);
+  background: var(--pending-bg);
+  border: 1px solid rgba(180, 83, 9, 0.24);
 }
