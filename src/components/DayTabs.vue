@@ -15,6 +15,7 @@ const tabs = [
   { label: 'Day 2', hint: 'Props & Emits', to: '/day2', match: ['/day2'] },
   { label: 'Day 3', hint: 'Vue Router', to: '/home', match: ['/home', '/task', '/about'] },
   { label: 'Day 4', hint: 'Pinia',      to: '/day4', match: ['/day4'] },
+  { label: 'Day 5', hint: 'API / Fetch', to: '/day5', match: ['/day5'] },
 ]
 
 // A tab is active when the current path matches any of its owned paths

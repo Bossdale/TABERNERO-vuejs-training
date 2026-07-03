@@ -27,6 +27,9 @@ import AboutView      from '@/days/day3/views/AboutView.vue'
 // ── Day 4 page (Pinia) ──
 import Day4TaskListView from '@/days/day4/views/TaskListView.vue'
 
+// ── Day 5 page (API / useFetch composable) ──
+import Day5TodoListView from '@/days/day5/views/TodoListView.vue'
+
 // TODO 2: Import your task store so the guard can check if a task exists
 import { useTaskStore } from '@/days/day3/stores/taskStore.js'
 
@@ -50,6 +53,9 @@ const routes = [
 
   // ── Day 4 (Pinia assignment) ──
   { path: '/day4', component: Day4TaskListView },
+
+  // ── Day 5 (API integration assignment) ──
+  { path: '/day5', component: Day5TodoListView },
 ]
 
 const router = createRouter({
