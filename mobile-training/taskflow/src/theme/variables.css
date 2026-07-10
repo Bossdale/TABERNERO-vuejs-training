@@ -1,2 +1,194 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+/* =========================================================
+   TaskFlow theme — Navy blue · minimalist
+   Ionic theming reference: https://ionicframework.com/docs/theming
+   ========================================================= */
+
+:root {
+  /* ---- Brand: Navy blue ---- */
+  --ion-color-primary: #1b3b6f;
+  --ion-color-primary-rgb: 27, 59, 111;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #183463;
+  --ion-color-primary-tint: #32517e;
+
+  /* Secondary: a lighter navy for accents / highlights */
+  --ion-color-secondary: #3f6fb5;
+  --ion-color-secondary-rgb: 63, 111, 181;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #37629f;
+  --ion-color-secondary-tint: #527dbc;
+
+  /* Success (muted green) */
+  --ion-color-success: #2e9e6b;
+  --ion-color-success-rgb: 46, 158, 107;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #288b5e;
+  --ion-color-success-tint: #43a87a;
+
+  /* Danger (soft red) */
+  --ion-color-danger: #d0524f;
+  --ion-color-danger-rgb: 208, 82, 79;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #b74845;
+  --ion-color-danger-tint: #d56360;
+
+  /* ---- App design tokens ---- */
+  --app-radius: 18px;
+  --app-radius-sm: 12px;
+  --app-shadow: 0 6px 18px rgba(27, 59, 111, 0.08);
+  --app-shadow-strong: 0 12px 28px rgba(27, 59, 111, 0.16);
+  --app-muted: #6b7891;
+}
+
+/* ---- Light mode surfaces (default) ---- */
+:root {
+  --ion-background-color: #eef2f9;
+  --ion-background-color-rgb: 238, 242, 249;
+  --ion-text-color: #15223c;
+  --ion-text-color-rgb: 21, 34, 60;
+
+  --ion-toolbar-background: #eef2f9;
+  --ion-item-background: #ffffff;
+  --ion-card-background: #ffffff;
+  --ion-tab-bar-background: #ffffff;
+
+  --app-border: rgba(27, 59, 111, 0.08);
+}
+
+/* ---- Dark mode: navy-tinted, activated by .ion-palette-dark ---- */
+.ion-palette-dark {
+  --ion-background-color: #0d1524;
+  --ion-background-color-rgb: 13, 21, 36;
+  --ion-text-color: #e7edf8;
+  --ion-text-color-rgb: 231, 237, 248;
+
+  --ion-toolbar-background: #0d1524;
+  --ion-item-background: #17223b;
+  --ion-card-background: #17223b;
+  --ion-tab-bar-background: #101b30;
+
+  /* Brighten the navy so it reads against the dark background */
+  --ion-color-primary: #5688d6;
+  --ion-color-primary-rgb: 86, 136, 214;
+  --ion-color-primary-contrast: #0d1524;
+  --ion-color-primary-contrast-rgb: 13, 21, 36;
+  --ion-color-primary-shade: #4c78bc;
+  --ion-color-primary-tint: #6794da;
+
+  --app-muted: #93a1bd;
+  --app-border: rgba(255, 255, 255, 0.08);
+  --app-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --app-shadow-strong: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================================
+   Global component polish (minimalist)
+   ========================================================= */
+
+/* Flat, borderless toolbars with a bold navy title */
+ion-toolbar {
+  --border-width: 0;
+  --background: var(--ion-toolbar-background);
+}
+ion-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Content lists sit on the tinted page background, not a white slab */
+ion-content ion-list {
+  background: transparent;
+  padding-top: 4px;
+}
+
+/* Card-style items — apply .app-cards to an <ion-list> */
+.app-cards ion-item {
+  --background: var(--ion-item-background);
+  --border-color: transparent;
+  --border-radius: var(--app-radius);
+  --padding-start: 16px;
+  --inner-padding-end: 10px;
+  --min-height: 60px;
+  margin: 0 16px 12px;
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.app-cards ion-item::part(native) {
+  border-radius: var(--app-radius);
+}
+.app-cards ion-item[button]:active {
+  transform: scale(0.98);
+  box-shadow: var(--app-shadow-strong);
+}
+
+/* Checkboxes + toggles in navy */
+ion-checkbox {
+  --checkbox-background-checked: var(--ion-color-primary);
+  --border-color-checked: var(--ion-color-primary);
+  --size: 22px;
+  --border-radius: 7px;
+}
+ion-toggle {
+  --track-background-checked: var(--ion-color-primary);
+}
+
+/* Floating action button: navy, soft glow, lifts on hover */
+ion-fab-button {
+  --background: var(--ion-color-primary);
+  --background-activated: var(--ion-color-primary-shade);
+  --background-hover: var(--ion-color-primary-tint);
+  --box-shadow: 0 10px 24px rgba(27, 59, 111, 0.35);
+  --border-radius: 18px;
+  transition: transform 0.2s ease;
+}
+ion-fab-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Progress bar accent */
+ion-progress-bar {
+  --background: var(--app-border);
+  --progress-background: var(--ion-color-primary);
+  border-radius: 999px;
+  height: 8px;
+}
+
+/* Tab bar: light, minimal, navy active state */
+ion-tab-bar {
+  --background: var(--ion-tab-bar-background);
+  border-top: 1px solid var(--app-border);
+  height: 60px;
+  padding-top: 4px;
+}
+ion-tab-button {
+  --color: var(--app-muted);
+  --color-selected: var(--ion-color-primary);
+}
+
+/* Segment (filter) — pill style */
+.filter-seg {
+  --background: var(--app-border);
+  border-radius: 999px;
+  margin: 0 16px 14px;
+  padding: 4px;
+}
+.filter-seg ion-segment-button {
+  --background-checked: var(--ion-item-background);
+  --color: var(--app-muted);
+  --color-checked: var(--ion-color-primary);
+  --indicator-color: transparent;
+  --border-radius: 999px;
+  min-height: 34px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.filter-seg ion-segment-button::part(indicator-background) {
+  border-radius: 999px;
+  box-shadow: var(--app-shadow);
+}

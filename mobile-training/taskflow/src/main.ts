@@ -29,16 +29,22 @@ import '@ionic/vue/css/display.css';
  */
 
 /* @import '@ionic/vue/css/palettes/dark.always.css'; */
-/* @import '@ionic/vue/css/palettes/dark.class.css'; */
-import '@ionic/vue/css/palettes/dark.system.css';
+/* Class-based dark mode: activated by the `.ion-palette-dark` class on <html>,
+   which our useTheme composable toggles. */
+import '@ionic/vue/css/palettes/dark.class.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+import { useTheme } from './composables/useTheme';
 
 const app = createApp(App)
   .use(IonicVue)
   .use(createPinia())
   .use(router);
+
+// Apply the saved (or system) theme before mount to avoid a flash of the wrong palette
+useTheme().initTheme();
 
 router.isReady().then(() => {
   app.mount('#app');
