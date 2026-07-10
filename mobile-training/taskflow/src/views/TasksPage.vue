@@ -20,10 +20,17 @@
 
       <!-- Task list: was <ul>/<li>, now IonList/IonItem -->
       <ion-list>
-        <ion-item v-for="task in tasks" :key="task.id">
+        <ion-item
+          v-for="task in tasks"
+          :key="task.id"
+          button
+          :detail="true"
+          @click="openTask(task.id)"
+        >
           <ion-checkbox
             slot="start"
             :checked="task.done"
+            @click.stop
             @ionChange="toggleTask(task.id)"
           />
           <ion-label :class="{ done: task.done }">{{ task.name }}</ion-label>
@@ -32,7 +39,7 @@
             slot="end"
             fill="clear"
             color="danger"
-            @click="removeTask(task.id)"
+            @click.stop="removeTask(task.id)"
           >
             <ion-icon slot="icon-only" :icon="trashOutline" />
           </ion-button>
@@ -70,8 +77,13 @@ import {
 } from '@ionic/vue';
 import { add, trashOutline } from 'ionicons/icons';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useTaskStore } from '@/stores/taskStore';
+
+const router = useRouter();
+// Tapping a task item navigates to its detail page
+const openTask = (id: number) => router.push(`/tabs/tasks/${id}`);
 
 const store = useTaskStore();
 // Reactive state + getters via storeToRefs
