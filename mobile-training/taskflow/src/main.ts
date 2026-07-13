@@ -38,6 +38,12 @@ import './theme/variables.css';
 
 import { useTheme } from './composables/useTheme';
 
+/* Register Ionic PWA Elements — provides the <pwa-action-sheet> and camera
+   modal that @capacitor/camera relies on when running in the browser.
+   Without this, Camera.getPhoto() with CameraSource.Prompt does nothing on web. */
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
+
 const app = createApp(App)
   .use(IonicVue)
   .use(createPinia())

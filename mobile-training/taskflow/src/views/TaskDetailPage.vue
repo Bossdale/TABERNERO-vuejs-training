@@ -21,6 +21,11 @@
           <p class="task-id">Task #{{ route.params.id }}</p>
         </div>
 
+        <!-- Attached photo -->
+        <div v-if="task.photo" class="task-photo">
+          <ion-img :src="task.photo" />
+        </div>
+
         <ion-list class="app-cards" lines="none">
           <ion-item>
             <ion-icon slot="start" :icon="pricetagOutline" color="primary" />
@@ -51,6 +56,10 @@
             <ion-icon slot="start" :icon="task.done ? arrowUndoOutline : checkmarkOutline" />
             {{ task.done ? 'Mark as pending' : 'Mark as done' }}
           </ion-button>
+          <ion-button expand="block" fill="outline" @click="onAddPhoto">
+            <ion-icon slot="start" :icon="cameraOutline" />
+            {{ task.photo ? 'Change photo' : 'Add photo' }}
+          </ion-button>
           <ion-button expand="block" fill="clear" color="danger" @click="onDelete">
             <ion-icon slot="start" :icon="trashOutline" />
             Delete task
@@ -71,12 +80,15 @@
 import {
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
   IonButtons, IonBackButton, IonList, IonItem, IonLabel,
-  IonNote, IonBadge, IonButton, IonIcon,
+  IonNote, IonBadge, IonButton, IonIcon, IonImg,
+  actionSheetController,
 } from '@ionic/vue';
 import {
   checkmarkCircle, ellipseOutline, pricetagOutline, documentTextOutline,
   flagOutline, checkmarkOutline, arrowUndoOutline, trashOutline, alertCircleOutline,
+  cameraOutline, imagesOutline,
 } from 'ionicons/icons';
+import { Camera } from '@capacitor/camera';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTaskStore } from '@/stores/taskStore';
@@ -84,11 +96,40 @@ import { useTaskStore } from '@/stores/taskStore';
 const route = useRoute();
 const router = useRouter();
 const store = useTaskStore();
-const { toggleTask, removeTask } = store;
+const { toggleTask, removeTask, addPhotoToTask } = store;
 
 // Read the :id route param (a string) and coerce to a number to match store ids
 const id = computed(() => Number(route.params.id));
 const task = computed(() => store.tasks.find(t => t.id === id.value));
+
+const onAddPhoto = async () => {
+  const sheet = await actionSheetController.create({
+    header: 'Add photo',
+    buttons: [
+      { text: 'Take Photo', icon: cameraOutline, handler: () => { capture('camera'); } },
+      { text: 'Choose from Gallery', icon: imagesOutline, handler: () => { capture('gallery'); } },
+      { text: 'Cancel', role: 'cancel' },
+    ],
+  });
+  await sheet.present();
+};
+
+const capture = async (source: 'camera' | 'gallery') => {
+  try {
+    let webPath: string | undefined;
+    if (source === 'camera') {
+      const result = await Camera.takePhoto({ quality: 80 });
+      webPath = result.webPath;
+    } else {
+      const { results } = await Camera.chooseFromGallery({ quality: 80 });
+      webPath = results[0]?.webPath;
+    }
+    if (webPath) addPhotoToTask(id.value, webPath);
+  } catch (err) {
+    // User cancelled the picker, or permission denied — no-op
+    console.warn('Photo capture cancelled or failed:', err);
+  }
+};
 
 // Delete then return to the task list
 const onDelete = () => {
@@ -137,6 +178,19 @@ const onDelete = () => {
   margin: 0;
   color: var(--app-muted);
   font-size: 0.85rem;
+}
+
+.task-photo {
+  margin: 16px;
+  border-radius: var(--app-radius);
+  overflow: hidden;
+  box-shadow: var(--app-shadow-strong);
+}
+.task-photo ion-img {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
 }
 
 .actions {

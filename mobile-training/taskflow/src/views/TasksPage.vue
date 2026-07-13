@@ -50,6 +50,9 @@
             @click.stop
             @ionChange="toggleTask(task.id)"
           />
+          <ion-thumbnail v-if="task.photo" slot="start" class="task-thumb">
+            <ion-img :src="task.photo" />
+          </ion-thumbnail>
           <ion-label :class="{ done: task.done }" class="task-name">{{ task.name }}</ion-label>
           <ion-button
             slot="end"
@@ -91,7 +94,7 @@ import {
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
   IonList, IonItem, IonLabel, IonCheckbox, IonButton, IonIcon,
   IonFab, IonFabButton, IonAlert, IonProgressBar,
-  IonSegment, IonSegmentButton,
+  IonSegment, IonSegmentButton, IonThumbnail, IonImg,
 } from '@ionic/vue';
 import { add, trashOutline, listOutline, checkmarkDoneOutline, sparklesOutline } from 'ionicons/icons';
 import { ref, computed } from 'vue';
@@ -203,6 +206,18 @@ const alertButtons = [
   margin: 10px 0 0;
   font-size: 0.85rem;
   opacity: 0.9;
+}
+
+/* Filter segment — square the outer container, keep the inner buttons rounded */
+.filter-seg {
+  --border-radius: 0;
+}
+
+/* Thumbnail for tasks that have a photo attached */
+.task-thumb {
+  --size: 44px;
+  --border-radius: 10px;
+  margin-right: 8px;
 }
 
 /* Task name + completed strike-through animation */

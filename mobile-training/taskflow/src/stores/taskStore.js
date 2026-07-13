@@ -7,12 +7,13 @@ import { defineStore } from 'pinia'
 
 export const useTaskStore = defineStore('tasks', () => {
   // --- state ---
+  // Each task: { id, name, done, photo } — photo holds a webPath string or null
   const tasks = ref([
-    { id: 1, name: 'Finish Vue Day 2 assignment', done: true },
-    { id: 2, name: 'Review props and emits', done: true },
-    { id: 3, name: 'Mag Lunch sa Ayala', done: false },
-    { id: 4, name: 'Explore Vue Router guards', done: true },
-    { id: 5, name: 'Web Development Training', done: false },
+    { id: 1, name: 'Finish Vue Day 2 assignment', done: true, photo: null },
+    { id: 2, name: 'Review props and emits', done: true, photo: null },
+    { id: 3, name: 'Mag Lunch sa Ayala', done: false, photo: null },
+    { id: 4, name: 'Explore Vue Router guards', done: true, photo: null },
+    { id: 5, name: 'Web Development Training', done: false, photo: null },
   ])
   const nextId = ref(6)
 
@@ -25,7 +26,7 @@ export const useTaskStore = defineStore('tasks', () => {
   function addTask(name) {
     const trimmed = (name ?? '').trim()
     if (!trimmed) return
-    tasks.value.push({ id: nextId.value++, name: trimmed, done: false })
+    tasks.value.push({ id: nextId.value++, name: trimmed, done: false, photo: null })
   }
 
   function toggleTask(id) {
@@ -37,5 +38,11 @@ export const useTaskStore = defineStore('tasks', () => {
     tasks.value = tasks.value.filter(t => t.id !== id)
   }
 
-  return { tasks, nextId, totalCount, doneCount, pendingCount, addTask, toggleTask, removeTask }
+  // Attach a photo (webPath from Capacitor Camera) to a task
+  function addPhotoToTask(id, path) {
+    const task = tasks.value.find(t => t.id === id)
+    if (task) task.photo = path
+  }
+
+  return { tasks, nextId, totalCount, doneCount, pendingCount, addTask, toggleTask, removeTask, addPhotoToTask }
 })
