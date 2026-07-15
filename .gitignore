@@ -1,0 +1,21 @@
+# === Secrets / signing keys (NEVER commit) ===
+taskflow-release
+*.jks
+*.keystore
+*.p12
+key.properties
+
+# === JetBrains IDE settings ===
+.idea/
+
+# === Android build outputs ===
+**/android/app/build/
+**/android/build/
+**/android/.gradle/
+**/android/app/release/
+**/android/captures/
+**/android/local.properties
+
+# === Node / web build artifacts ===
+node_modules/
+dist/
